@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DeviceGuard</string>
+    <string name="admin_request_explanation">DeviceGuard needs administrator access to remotely lock and secure your device. You can disable this anytime in settings.</string>
+    <string name="notification_channel_id">DeviceGuardChannel</string>
+</resources>
