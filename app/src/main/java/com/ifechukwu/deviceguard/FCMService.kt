@@ -112,10 +112,50 @@ class FCMService: FirebaseMessagingService() {
                     deviceController.resetPassword(newPassword)
                 }
             }
-            Constants.COMMAND_HIDE_APP -> {
-                Timber.i("Hide app command received")
-                val isHidden = data["is_hidden"]?.toBoolean() ?: false
-                deviceController.hideApplication(isHidden)
+            Constants.COMMAND_KIOSK_MODE -> {
+                Timber.i("Kiosk mode command received")
+                val enabled = data["enabled"]?.toBoolean() ?: false
+                if (enabled) {
+                    deviceController.enableKioskMode(emptyArray())
+                } else {
+                    deviceController.disableKioskMode()
+                }
+            }
+            Constants.COMMAND_DISABLE_SCREEN_CAPTURE -> {
+                Timber.i("Allow screen capture command received")
+                val disabled = data["disabled"]?.toBoolean() ?: true
+
+                deviceController.disableScreenCapture(disabled)
+            }
+            Constants.COMMAND_LOCK_SCREEN_INFO -> {
+                Timber.i("Lock screen info command received")
+                val message = data["message"]
+                deviceController.setDeviceOwnerLockScreenInfo(message)
+            }
+            Constants.COMMAND_SHORT_SUPPORT_MESSAGE -> {
+                Timber.i("Short support message command received")
+                val message = data["message"]
+                deviceController.setShortSupportMessage(message)
+            }
+            Constants.COMMAND_LONG_SUPPORT_MESSAGE -> {
+                Timber.i("Long support message command received")
+                val message = data["message"]
+                deviceController.setLongSupportMessage(message)
+            }
+            Constants.COMMAND_LOCK_WALLPAPER -> {
+                Timber.i("Lock wallpaper command received")
+                val enabled = data["enabled"]?.toBoolean() ?: true
+                deviceController.lockDeviceWallpaper(enabled)
+            }
+            Constants.COMMAND_SUSPEND_APPS -> {
+                Timber.i("Suspend apps command received")
+                val suspend = data["suspend"]?.toBoolean() ?: true
+                deviceController.suspendApps(emptyArray(), suspend)
+            }
+            Constants.COMMAND_BLOCK_UNKNOWN_SOURCES -> {
+                Timber.i("Block unknown sources command received")
+                val block = data["block"]?.toBoolean() ?: true
+                deviceController.blockUnknownSources(block)
             }
             else -> {
                 Timber.e("Invalid command received")

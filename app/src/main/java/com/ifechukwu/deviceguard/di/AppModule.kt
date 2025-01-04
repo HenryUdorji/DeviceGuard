@@ -3,10 +3,8 @@ package com.ifechukwu.deviceguard.di
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
-import android.content.SharedPreferences
-import com.ifechukwu.deviceguard.DeviceAdminReceiver
 import com.ifechukwu.deviceguard.DeviceController
-import com.ifechukwu.deviceguard.FCMService
+import com.ifechukwu.deviceguard.receiver.DeviceOwnerReceiver
 import com.ifechukwu.deviceguard.SessionManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.singleOf
@@ -26,7 +24,7 @@ val appModule = module {
 
     single {
         val context = androidContext().applicationContext
-        ComponentName(context, DeviceAdminReceiver::class.java)
+        ComponentName(context, DeviceOwnerReceiver::class.java)
     }
 
     singleOf(::DeviceController)
